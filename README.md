@@ -46,3 +46,5 @@ excel_sheet_name:
 ## Todo list
 
 * *Complete the README!*
+* Add in error checking and handling, e.g. when the specified sheet does not
+  exist in Excel
