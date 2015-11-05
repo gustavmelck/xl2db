@@ -66,6 +66,14 @@ def run_import(excel_file, db_conn, mapping):
             db_conn,
             mapping[sheet_name])
 
+def db_connection(db_path):
+    """Connect to the DB and turn on foreign key checking."""
+    conn = sqlite3.connect(db_path)
+    curs = conn.cursor()
+    curs.execute('pragma foreign_keys = on')
+    conn.commit()
+    curs.close()
+    return conn
 
 def main():
     """Main commandline routine."""
@@ -74,7 +82,7 @@ def main():
     excel_file = pd.ExcelFile(args.excel_file.name)
     print('Done')
     print('Connecting to database...')
-    db_conn = sqlite3.connect(args.database_file)
+    db_conn = db_connection(args.database_file)
     print('Done')
     print('Loading mapping...')
     mapping = yaml.load(args.mapping_file)
